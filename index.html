@@ -143,5 +143,27 @@
         }
     </script>
 
+    <script>
+document.getElementById("chatbox-icon").addEventListener("click", function() {
+ 
+  gtag('event', 'chatbox_open', {
+    'event_category': 'engagement',
+    'event_label': 'chat open',
+    'value': 1
+  });
+ 
+});
+
+        document.getElementById("close-chatbox").addEventListener("click", function() {
+ 
+  gtag('event', 'chatbox_close', {
+    'event_category': 'engagement',
+    'event_label': 'chat close',
+    'value': 1
+  });
+ 
+});
+</script>
+
 </body>
 </html>
