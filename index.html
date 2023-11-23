@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbox Example</title>
+
+     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQSSK525LS"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -10,101 +14,17 @@
 
   gtag('config', 'G-GQSSK525LS');
 </script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GA4 CHatbot</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
+        /* Your existing styles go here */
 
-        #chatbox-icon {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #chatbox {
-            display: none;
-            position: fixed;
-            bottom: 120px;
-            right: 20px;
-            width: 300px;
-            height: 400px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        #chatbox-header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        #chatbox-content {
-            padding: 20px;
-            overflow-y: scroll;
-            height: calc(100% - 80px);
-        }
-
-        #chatbox-input {
-            padding: 10px;
-            border-top: 1px solid #ccc;
-            display: flex;
-        }
-
-        #chatbox-input input {
-            flex: 1;
-            padding: 8px;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        #chatbox-input button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 8px;
-            cursor: pointer;
-        }
-
-        #close-chatbox {
-            position: absolute;
-            top: 5px;
-            right: 10px;
+        #chatbox-icon, #close-chatbox {
             cursor: pointer;
             color: #ffffff;
-            font-size: 20px;
         }
     </style>
 </head>
 <body>
-
-    <div>
-        ChatBot Application for Testing GA4
-    </div>
 
     <button id="chatbox-icon" onclick="toggleChatbox()">C</button>
 
@@ -125,45 +45,60 @@
     <script>
         function toggleChatbox() {
             var chatbox = document.getElementById('chatbox');
-            chatbox.style.display = (chatbox.style.display === 'none' || chatbox.style.display === '') ? 'block' : 'none';
+            var chatboxIcon = document.getElementById('chatbox-icon');
+
+            var timestamp = new Date().getTime();
+
+            if (chatbox.style.display === 'none' || chatbox.style.display === '') {
+                chatbox.style.display = 'block';
+                chatboxIcon.innerHTML = '✖'; // Change icon to close symbol
+                // Track chatbox open event with timestamp
+                gtag('event', 'chatbox_open', {
+                    'event_category': 'engagement',
+                    'event_label': 'chatbox',
+                    'event_value': timestamp
+                });
+            } else {
+                chatbox.style.display = 'none';
+                chatboxIcon.innerHTML = '👋'; // Change icon to chat symbol
+                // Track chatbox close event with timestamp
+                gtag('event', 'chatbox_close', {
+                    'event_category': 'engagement',
+                    'event_label': 'chatbox',
+                    'event_value': timestamp
+                });
+            }
         }
 
         function sendMessage() {
-            // Handle sending a message (you can implement this logic)
-            var inputElement = document.querySelector('#chatbox-input input');
-            var message = inputElement.value;
-            console.log('Sending message:', message);
-
-            // You can add the message to the chatbox content
-            var chatboxContent = document.getElementById('chatbox-content');
-            chatboxContent.innerHTML += '<p><strong>You:</strong> ' + message + '</p>';
-
-            // Clear the input field
-            inputElement.value = '';
+            // Your existing logic
+            // Track a custom event when a message is sent with timestamp
+            var timestamp = new Date().getTime();
+            gtag('event', 'message_sent', {
+                'event_category': 'engagement',
+                'event_label': 'chatbox',
+                'event_value': timestamp
+            });
         }
+
+        // Track page open event with timestamp
+        var pageOpenTimestamp = new Date().getTime();
+        gtag('event', 'page_open', {
+            'event_category': 'navigation',
+            'event_label': 'homepage',
+            'event_value': pageOpenTimestamp
+        });
+
+        // Track page close event when the user closes the browser or tab with timestamp
+        window.addEventListener('beforeunload', function () {
+            var pageCloseTimestamp = new Date().getTime();
+            gtag('event', 'page_close', {
+                'event_category': 'navigation',
+                'event_label': 'homepage',
+                'event_value': pageCloseTimestamp
+            });
+        });
     </script>
-
-    <script>
-document.getElementById("chatbox-icon").addEventListener("click", function() {
- 
-  gtag('event', 'chatbox_open', {
-    'event_category': 'engagement',
-    'event_label': 'chat open',
-    'value': 1
-  });
- 
-});
-
-        document.getElementById("close-chatbox").addEventListener("click", function() {
- 
-  gtag('event', 'chatbox_close', {
-    'event_category': 'engagement',
-    'event_label': 'chat close',
-    'value': 1
-  });
- 
-});
-</script>
 
 </body>
 </html>
