@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA4 CHatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        #chatbox-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #chatbox {
+            display: none;
+            position: fixed;
+            bottom: 120px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #chatbox-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #chatbox-content {
+            padding: 20px;
+            overflow-y: scroll;
+            height: calc(100% - 80px);
+        }
+
+        #chatbox-input {
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            display: flex;
+        }
+
+        #chatbox-input input {
+            flex: 1;
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #chatbox-input button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        #close-chatbox {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        ChatBot Application for Testing GA4
+    </div>
+
+    <button id="chatbox-icon" onclick="toggleChatbox()">C</button>
+
+    <div id="chatbox">
+        <div id="close-chatbox" onclick="toggleChatbox()">✖</div>
+        <div id="chatbox-header">
+            Chatbox
+        </div>
+        <div id="chatbox-content">
+            <!-- Chatbox content goes here -->
+        </div>
+        <div id="chatbox-input">
+            <input type="text" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleChatbox() {
+            var chatbox = document.getElementById('chatbox');
+            chatbox.style.display = (chatbox.style.display === 'none' || chatbox.style.display === '') ? 'block' : 'none';
+        }
+
+        function sendMessage() {
+            // Handle sending a message (you can implement this logic)
+            var inputElement = document.querySelector('#chatbox-input input');
+            var message = inputElement.value;
+            console.log('Sending message:', message);
+
+            // You can add the message to the chatbox content
+            var chatboxContent = document.getElementById('chatbox-content');
+            chatboxContent.innerHTML += '<p><strong>You:</strong> ' + message + '</p>';
+
+            // Clear the input field
+            inputElement.value = '';
+        }
+    </script>
+
+</body>
+</html>
