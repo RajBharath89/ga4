@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbox Example</title>
-
-     <!-- Google tag (gtag.js) -->
+    <title>GA4 Environment</title>
+         <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQSSK525LS"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -14,9 +13,7 @@
 
   gtag('config', 'G-GQSSK525LS');
 </script>
-
     <style>
-        /* Your existing styles go here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -108,6 +105,10 @@
 </head>
 <body>
 
+    <div>
+        ChatBot Application for GA4
+    </div>
+
     <button id="chatbox-icon" onclick="toggleChatbox()">C</button>
 
     <div id="chatbox">
@@ -125,6 +126,11 @@
     </div>
 
     <script>
+        // function toggleChatbox() {
+        //     var chatbox = document.getElementById('chatbox');
+        //     chatbox.style.display = (chatbox.style.display === 'none' || chatbox.style.display === '') ? 'block' : 'none';
+        // }
+
         function toggleChatbox() {
             var chatbox = document.getElementById('chatbox');
             var chatboxIcon = document.getElementById('chatbox-icon');
@@ -152,18 +158,28 @@
             }
         }
 
+
         function sendMessage() {
-            // Your existing logic
-            // Track a custom event when a message is sent with timestamp
+            // Handle sending a message (you can implement this logic)
+            var inputElement = document.querySelector('#chatbox-input input');
+            var message = inputElement.value;
+            console.log('Sending message:', message);
+
+            // You can add the message to the chatbox content
+            var chatboxContent = document.getElementById('chatbox-content');
+            chatboxContent.innerHTML += '<p><strong>You:</strong> ' + message + '</p>';
+
+            // Clear the input field
+            inputElement.value = '';
+
             var timestamp = new Date().getTime();
             gtag('event', 'message_sent', {
                 'event_category': 'engagement',
                 'event_label': 'chatbox',
                 'event_value': timestamp
             });
-        }
 
-        // Track page open event with timestamp
+             // Track page open event with timestamp
         var pageOpenTimestamp = new Date().getTime();
         gtag('event', 'page_open', {
             'event_category': 'navigation',
@@ -180,6 +196,7 @@
                 'event_value': pageCloseTimestamp
             });
         });
+        }
     </script>
 
 </body>
