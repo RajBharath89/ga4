@@ -199,5 +199,36 @@
         }
     </script>
 
+    <script>
+        // Set the idle time threshold in milliseconds
+        const idleTimeThreshold = 15 * 60 * 1000; // 15 minutes
+
+        let idleTimer;
+
+        function resetIdleTimer() {
+            clearTimeout(idleTimer);
+            idleTimer = setTimeout(trackIdleEvent, idleTimeThreshold);
+        }
+
+        function trackIdleEvent() {
+            // Track the idle event using GA4
+            gtag('event', 'idle_time', {
+                'event_category': 'engagement',
+                'event_label': 'user_idle',
+                'event_value': idleTimeThreshold
+            });
+
+            // You can also perform additional actions when the user is idle
+            console.log('User is idle for more than 15 minutes');
+        }
+
+        // Reset the idle timer on user interactions
+        document.addEventListener('mousemove', resetIdleTimer);
+        document.addEventListener('keypress', resetIdleTimer);
+
+        // Initial setup of the idle timer
+        resetIdleTimer();
+    </script>
+
 </body>
 </html>
